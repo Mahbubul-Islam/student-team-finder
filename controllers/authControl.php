@@ -13,11 +13,13 @@
         if (empty($_POST["email"])) {
             $emailErr = "Email is required";
             $hasError = true;
-        } else {
+        } 
+        else {
             if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
                 $emailErr = "Invalid email format";
                 $hasError = true;
-            } else {
+            } 
+            else {
                 $email = trim($_POST["email"]);
             }
         }
@@ -27,7 +29,12 @@
             $hasError = true;
         } 
         else {
-            $password = trim($_POST["pass"]);
+            if (strlen($_POST["pass"]) < 6) {
+                $passwordErr = "Password must be at least 6 characters long";
+                $hasError = true;
+            } else {
+                $password = $_POST["pass"];
+            }
         }
 
         if ($hasError) {
