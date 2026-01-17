@@ -37,7 +37,12 @@
             $hasError = true;
         } 
         else {
-            $password = $_POST["pass"];
+            if (strlen($_POST["pass"]) < 6) {
+                $passwordErr = "Password must be at least 6 characters long";
+                $hasError = true;
+            } else {
+                $password = $_POST["pass"];
+            }
         }
 
         if (empty($_POST["confPass"])) {
