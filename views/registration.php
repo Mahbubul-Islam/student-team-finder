@@ -3,7 +3,7 @@ session_start();
 $errors = $_SESSION['errors'] ?? [];
 $oldInput = $_SESSION['old_input'] ?? [];
 
-// Get individual error messages
+
 $nameErr = $errors['nameErr'] ?? '';
 $emailErr = $errors['emailErr'] ?? '';
 $passwordErr = $errors['passwordErr'] ?? '';
@@ -11,7 +11,7 @@ $confPasswordErr = $errors['confPasswordErr'] ?? '';
 $roleErr = $errors['roleErr'] ?? '';
 $genderErr = $errors['genderErr'] ?? '';
 
-// Clear errors after displaying
+
 unset($_SESSION['errors']);
 unset($_SESSION['old_input']);
 ?>
