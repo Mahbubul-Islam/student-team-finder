@@ -45,7 +45,7 @@
 
            $user = authUser($email, $password);
            
-           if(!$user) {
+           if(!$user) { 
                $passwordErr = "Invalid email or password";
                $_SESSION['errors'] = [
                    'passwordErr' => $passwordErr
@@ -54,7 +54,7 @@
                    'email' => $email
                ];
                header("Location: ../views/login.php");
-               exit();
+               exit(); 
            }
            
             if($user['role'] == 'admin'){
