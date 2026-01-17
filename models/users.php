@@ -49,23 +49,27 @@
     //     return $user;
     // }
 
-    // fucntion authUser($email, $hashedPassword){
-    //     $conn = dbConnect();
-    //         $query = "SELECT * FROM users WHERE email = ? AND password = ?";
-    //         $stmt = $conn->prepare($query);
-    //         $stmt->bind_param("ss", $email, $hashedPassword);
-    //         $stmt->execute();
-    //         $data = $stmt->get_result();
-    //         if ($data->num_rows > 0) {
-    //             $user = $data->fetch_assoc();
-    //         } else {
-    //             $user = null;
-    //         }
-    //         $stmt->close();
-    //         $conn->close();
-    //         return $user;
-
-    // }
+    function authUser($email, $password){
+        $conn = dbConnect();
+        $query = "SELECT * FROM users WHERE email = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $data = $stmt->get_result(); 
+        
+        if ($data->num_rows > 0) {
+            $user = $data->fetch_assoc();
+            if (password_verify($password, $user['password'])) {
+                $stmt->close();
+                $conn->close();
+                return $user;
+            }
+        }
+        
+        $stmt->close();
+        $conn->close();
+        return null;
+    }
 
 
 
