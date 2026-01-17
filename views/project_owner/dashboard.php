@@ -1,5 +1,5 @@
 <?php
-session_start(); // Make sure this is at the top of the file
+require_once('../../controllers/authCheck.php');
 
 echo $_SESSION['user']['name'];        
 echo $_SESSION['user']['email'];       
