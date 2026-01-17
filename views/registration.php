@@ -1,3 +1,20 @@
+<?php 
+session_start();
+$errors = $_SESSION['errors'] ?? [];
+$oldInput = $_SESSION['old_input'] ?? [];
+
+// Get individual error messages
+$nameErr = $errors['nameErr'] ?? '';
+$emailErr = $errors['emailErr'] ?? '';
+$passwordErr = $errors['passwordErr'] ?? '';
+$confPasswordErr = $errors['confPasswordErr'] ?? '';
+$roleErr = $errors['roleErr'] ?? '';
+$genderErr = $errors['genderErr'] ?? '';
+
+// Clear errors after displaying
+unset($_SESSION['errors']);
+unset($_SESSION['old_input']);
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,29 +22,52 @@
     </head>
     <body>
         <div class="form-box">
-<form class="form">
+<form class="form" action="../controllers/registerControl.php" method="post">
     <span class="title">Sign up</span>
     <span class="subtitle">Create a free account with your email.</span>
 
-    <select class="input">
-        <option value="" disabled selected>Sign up as</option>
-        <option value="project_owner">Project Owner</option>
-        <option value="project_applicant">Project Applicant</option>
+    <select class="input" name="role">
+        <option value="" disabled <?php echo empty($oldInput['role']) ? 'selected' : ''; ?>>Sign up as</option>
+        <option value="project_owner" <?php echo ($oldInput['role'] ?? '') == 'project_owner' ? 'selected' : ''; ?>>Project Owner</option>
+        <option value="project_applicant" <?php echo ($oldInput['role'] ?? '') == 'project_applicant' ? 'selected' : ''; ?>>Project Applicant</option>
     </select>
+    <?php if ($roleErr): ?>
+        <span style="color: red; font-size: 12px;"><?php echo $roleErr; ?></span>
+    <?php endif; ?>
+    
     <div class="form-container">
-        <input type="text" class="input" placeholder="Full Name">
-		<input type="email" class="input" placeholder="Email">
-		<input type="password" class="input" placeholder="Password">
-		<input type="password" class="input" placeholder="Confirm Password">
+        <input type="text" class="input" name="name" placeholder="Full Name" value="<?php echo htmlspecialchars($oldInput['name'] ?? ''); ?>">
+        <?php if ($nameErr): ?>
+            <span style="color: red; font-size: 12px;"><?php echo $nameErr; ?></span>
+        <?php endif; ?>
+        
+		<input type="email" class="input" name="email" placeholder="Email" value="<?php echo htmlspecialchars($oldInput['email'] ?? ''); ?>">
+        <?php if ($emailErr): ?>
+            <span style="color: red; font-size: 12px;"><?php echo $emailErr; ?></span>
+        <?php endif; ?>
+        
+		<input type="password" class="input" name="pass" placeholder="Password">
+        <?php if ($passwordErr): ?>
+            <span style="color: red; font-size: 12px;"><?php echo $passwordErr; ?></span>
+        <?php endif; ?>
+        
+		<input type="password" class="input" name="confPass" placeholder="Confirm Password">
+        <?php if ($confPasswordErr): ?>
+            <span style="color: red; font-size: 12px;"><?php echo $confPasswordErr; ?></span>
+        <?php endif; ?>
+        
         <div class="gender-selection">
             <div>Select your gender </div>
         <label for="male">
-            <input type="radio" name="gender" id="male" value="male"> Male
+            <input type="radio" name="gender" id="male" value="male" <?php echo ($oldInput['gender'] ?? '') == 'male' ? 'checked' : ''; ?>> Male
         </label>
         <label for="female">
-            <input type="radio" name="gender" id="female" value="female"> Female 
+            <input type="radio" name="gender" id="female" value="female" <?php echo ($oldInput['gender'] ?? '') == 'female' ? 'checked' : ''; ?>> Female 
         </label>
         </div>
+        <?php if ($genderErr): ?>
+            <span style="color: red; font-size: 12px;"><?php echo $genderErr; ?></span>
+        <?php endif; ?>
     </div>
     <button>Sign up</button>
 </form>
