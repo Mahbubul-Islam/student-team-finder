@@ -70,7 +70,7 @@
         }
 
         if ($hasError) {
-            // Store errors and form data in session
+            
             $_SESSION['errors'] = [
                 'nameErr' => $nameErr,
                 'emailErr' => $emailErr,
@@ -89,7 +89,7 @@
             exit();
         }
 
-        // Check if email already exists
+        
         if (getUserByEmail($email)) {
             $_SESSION['errors'] = ['emailErr' => 'Email is already registered.'];
             $_SESSION['old_input'] = [
@@ -105,11 +105,11 @@
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
         createUser($name, $email, $hashedPassword, $role, $gender);
         
-        // Clear any old errors
+        
         unset($_SESSION['errors']);
         unset($_SESSION['old_input']);
         
-        // Redirect to login or dashboard
+        
         header("Location: ../views/login.php?registered=success");
         exit();
     }
