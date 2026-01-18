@@ -1,5 +1,9 @@
 <?php
     require_once("dbConnect.php");
+    
+    
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
 
     function generateOTP() {
         return sprintf("%06d", mt_rand(0, 999999));
@@ -9,7 +13,7 @@
     function storeOTP($email, $otp) {
         $conn = dbConnect();
         
-        // Delete any existing OTPs for this email
+        
         $deleteQuery = "DELETE FROM password_resets WHERE email = ?";
         $deleteStmt = $conn->prepare($deleteQuery);
         $deleteStmt->bind_param("s", $email);
@@ -91,25 +95,58 @@
 
 
     function sendOTPEmail($email, $otp) {
+        require __DIR__ . '/../vendor/autoload.php'; 
         
-        $to = $email;
-        $subject = "Password Reset OTP - Student Team Finder";
-        $message = "Your OTP for password reset is: $otp\n\n";
-        $message .= "This OTP will expire in 15 minutes.\n\n";
-        $message .= "If you did not request this, please ignore this email.";
-        $headers = "From: noreply@studentteamfinder.com\r\n";
-        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+        $mail = new PHPMailer(true);
         
-        // For testing purposes, write to a log file
-        $logFile = __DIR__ . "/../otp_logs.txt";
-        $logMessage = date('Y-m-d H:i:s') . " - Email: $email, OTP: $otp\n";
-        file_put_contents($logFile, $logMessage, FILE_APPEND);
-        
-        // Uncomment this line when you have email configured
-        // return mail($to, $subject, $message, $headers);
-        
-        // For now, return true to simulate successful sending
-        return true;
+        try {
+            
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'mahbubulislamshiam48@gmail.com'; 
+            $mail->Password   = 'xwcg nsjp cnzs aeqc';         
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;      
+            $mail->Port       = 465;
+            
+            
+            $mail->setFrom('mahbubulislamshiam48@gmail.com', 'Student Team Finder');
+            $mail->addAddress($email);
+            
+           
+            $mail->isHTML(true);
+            $mail->Subject = 'Password Reset OTP - Student Team Finder';
+            $mail->Body    = "
+                <html>
+                <body style='font-family: Arial, sans-serif;'>
+                    <h2>Password Reset Request</h2>
+                    <p>Your OTP for password reset is:</p>
+                    <h1 style='color: #0066ff; font-size: 32px; letter-spacing: 5px;'>$otp</h1>
+                    <p>This OTP will expire in <strong>15 minutes</strong>.</p>
+                    <p>If you did not request this, please ignore this email.</p>
+                    <hr>
+                    <p style='color: #666; font-size: 12px;'>Student Team Finder</p>
+                </body>
+                </html>
+            ";
+            $mail->AltBody = "Your OTP for password reset is: $otp\n\nThis OTP will expire in 15 minutes.\n\nIf you did not request this, please ignore this email.";
+            
+            $mail->send();
+            
+            
+            $logFile = __DIR__ . "/../otp_logs.txt";
+            $logMessage = date('Y-m-d H:i:s') . " - Email SENT to: $email, OTP: $otp\n";
+            file_put_contents($logFile, $logMessage, FILE_APPEND);
+            
+            return true;
+            
+        } catch (Exception $e) {
+            $logFile = __DIR__ . "/../otp_logs.txt";
+            $logMessage = date('Y-m-d H:i:s') . " - Email FAILED to: $email, Error: {$mail->ErrorInfo}\n";
+            file_put_contents($logFile, $logMessage, FILE_APPEND);
+            
+            return false;
+        }
     }
 
 
