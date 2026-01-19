@@ -189,10 +189,19 @@
 
         if ($updateResult) {
             $_SESSION['success_message'] = "User updated successfully";
-            header("Location: ../views/admin/dashboard.php");
+            
+            
+            $returnPage = isset($_POST['return']) && $_POST['return'] === 'profile' 
+                ? "../views/common/profile.php" 
+                : "../views/admin/dashboard.php";
+            
+            header("Location: " . $returnPage);
         } else {
             $_SESSION['edit_errors'] = ['generalErr' => 'Failed to update user'];
-            header("Location: ../views/admin/editUser.php?id=" . $userId);
+            
+            
+            $returnParam = isset($_POST['return']) && $_POST['return'] === 'profile' ? '&return=profile' : '';
+            header("Location: ../views/admin/editUser.php?id=" . $userId . $returnParam);
         }
         exit();
     } else {

@@ -13,6 +13,10 @@ function getBasePath() {
             return '../';
     }
 }
+
+function getCommonPath() {
+    return '../../views/common/';
+}
 ?>
 
 
@@ -46,9 +50,9 @@ function getBasePath() {
         </div>
 
         <ul class="navbar-menu" id="navbarMenu">
-            <li><a href="<?php echo getBasePath(); ?>home.php" class="navbar-link">Home</a></li>
+            <li><a href="<?php echo getCommonPath(); ?>home.php" class="navbar-link">Home</a></li>
             <li><a href="<?php echo getBasePath(); ?>dashboard.php" class="navbar-link">Dashboard</a></li>
-            <li><a href="<?php echo getBasePath(); ?>profile.php" class="navbar-link">Profile</a></li>
+            <li><a href="<?php echo getCommonPath(); ?>profile.php" class="navbar-link">Profile</a></li>
             
             <li class="user-profile">
                 

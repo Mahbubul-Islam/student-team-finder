@@ -2,27 +2,20 @@
     session_start();
     require_once("../../models/users.php");
 
-    
-    if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
+    if (!isset($_SESSION['user'])) {
         header("Location: ../login.php");
         exit();
     }
 
-    
-    $userId = $_GET['id'] ?? null;
-    if (!$userId) {
-        header("Location: dashboard.php");
-        exit();
-    }
-
-    
+    $userId = $_SESSION['user']['user_id'];
     $user = getUserById($userId);
+    
     if (!$user) {
-        header("Location: dashboard.php");
+        $role = $_SESSION['user']['role'];
+        header("Location: ../{$role}/dashboard.php");
         exit();
     }
 
-    
     $errors = $_SESSION['edit_errors'] ?? [];
     unset($_SESSION['edit_errors']);
 ?>
@@ -32,12 +25,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit User - Admin Dashboard</title>
+    <title>Edit Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/navbar.css">
-    <link rel="stylesheet" href="css/editUserStyle.css">
+    <link rel="stylesheet" href="css/editProfileStyle.css">
 </head>
 <body>
     <?php include('../partials/navbar.php'); ?>
@@ -45,11 +38,8 @@
     <div class="main-content">
         <div class="form-container">
             <div class="form-header">
-                <h2><i class="fas fa-user-edit"></i> Edit User</h2>
-                <?php 
-                $returnPage = isset($_GET['return']) && $_GET['return'] === 'profile' ? '../common/profile.php' : 'dashboard.php';
-                ?>
-                <a href="<?php echo $returnPage; ?>" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
+                <h2><i class="fas fa-user-edit"></i> Edit Profile</h2>
+                <a href="profile.php" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
             </div>
 
             <?php if (isset($errors['generalErr'])): ?>
@@ -58,13 +48,9 @@
                 </div>
             <?php endif; ?>
 
-            <form action="../../controllers/updateUserControl.php" method="POST" enctype="multipart/form-data">
+            <form action="../../controllers/updateProfileControl.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['user_id']); ?>">
-                <?php if (isset($_GET['return']) && $_GET['return'] === 'profile'): ?>
-                    <input type="hidden" name="return" value="profile">
-                <?php endif; ?>
 
-                
                 <div class="profile-section">
                     <div class="current-image">
                         <?php 
@@ -87,7 +73,6 @@
                     </div>
                 </div>
 
-                
                 <div class="form-grid">
                     <div class="form-field">
                         <label><i class="fas fa-user"></i> Full Name</label>
@@ -106,19 +91,6 @@
                     </div>
 
                     <div class="form-field">
-                        <label><i class="fas fa-user-tag"></i> Role</label>
-                        <select name="role" required>
-                            <option value="">Select Role</option>
-                            <option value="admin" <?php echo $user['role'] === 'admin' ? 'selected' : ''; ?>>Admin</option>
-                            <option value="project_owner" <?php echo $user['role'] === 'project_owner' ? 'selected' : ''; ?>>Project Owner</option>
-                            <option value="project_applicant" <?php echo $user['role'] === 'project_applicant' ? 'selected' : ''; ?>>Project Applicant</option>
-                        </select>
-                        <?php if (isset($errors['roleErr'])): ?>
-                            <span class="error-text"><?php echo $errors['roleErr']; ?></span>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="form-field">
                         <label><i class="fas fa-venus-mars"></i> Gender</label>
                         <select name="gender" required>
                             <option value="">Select Gender</option>
@@ -130,21 +102,8 @@
                             <span class="error-text"><?php echo $errors['genderErr']; ?></span>
                         <?php endif; ?>
                     </div>
-
-                    <div class="form-field full-width">
-                        <label><i class="fas fa-toggle-on"></i> Status</label>
-                        <select name="status" required>
-                            <option value="">Select Status</option>
-                            <option value="active" <?php echo $user['status'] === 'active' ? 'selected' : ''; ?>>Active</option>
-                            <option value="inactive" <?php echo $user['status'] === 'inactive' ? 'selected' : ''; ?>>Inactive</option>
-                        </select>
-                        <?php if (isset($errors['statusErr'])): ?>
-                            <span class="error-text"><?php echo $errors['statusErr']; ?></span>
-                        <?php endif; ?>
-                    </div>
                 </div>
 
-              
                 <div class="password-section">
                     <h3><i class="fas fa-key"></i> Change Password (Optional)</h3>
                     <p class="section-note">Leave blank to keep current password</p>
@@ -165,15 +124,11 @@
                     <?php endif; ?>
                 </div>
 
-                
                 <div class="form-actions">
                     <button type="submit" class="btn-save">
                         <i class="fas fa-save"></i> Save Changes
                     </button>
-                    <?php 
-                    $returnPage = isset($_GET['return']) && $_GET['return'] === 'profile' ? '../common/profile.php' : 'dashboard.php';
-                    ?>
-                    <a href="<?php echo $returnPage; ?>" class="btn-cancel">
+                    <a href="profile.php" class="btn-cancel">
                         <i class="fas fa-times"></i> Cancel
                     </a>
                 </div>
@@ -182,6 +137,7 @@
     </div>
 
     <?php include('../partials/footer.php'); ?>
-    
+
+    <script src="js/editProfile.js"></script>
 </body>
 </html>

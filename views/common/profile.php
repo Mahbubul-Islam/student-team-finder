@@ -2,20 +2,25 @@
     session_start();
     require_once("../../models/users.php");
 
-    
-    if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
+    if (!isset($_SESSION['user'])) {
         header("Location: ../login.php");
         exit();
     }
 
-    
     $userId = $_SESSION['user']['user_id'];
     $user = getUserById($userId);
     
     if (!$user) {
-        header("Location: dashboard.php");
+        $role = $_SESSION['user']['role'];
+        header("Location: ../{$role}/dashboard.php");
         exit();
     }
+    
+    
+    $dashboardUrl = '../' . $_SESSION['user']['role'] . '/dashboard.php';
+    
+    
+    $editUrl = "editProfile.php";
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +28,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile - Admin</title>
+    <title>My Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
           crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -99,10 +104,9 @@
                 </div>
 
                 <div class="profile-actions">
-                    <a href="editUser.php?id=<?php echo $user['user_id']; ?>&return=profile" class="btn-edit">
+                    <a href="<?php echo $editUrl; ?>" class="btn-edit">
                         <i class="fas fa-edit"></i> Edit Profile
                     </a>
-                    
                 </div>
             </div>
         </div>
