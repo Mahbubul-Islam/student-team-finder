@@ -7,7 +7,6 @@ require_once('../../controllers/authCheck.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="css/dashboardStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"  />
 </head>
@@ -46,7 +45,7 @@ require_once('../../controllers/authCheck.php');
             </div>
         </div>
 
-        <!-- Users List Section -->
+        
         <div class="users-section">
             <div class="section-header">
                 <h2><i class="fas fa-list"></i> All Users</h2>
@@ -78,14 +77,13 @@ require_once('../../controllers/authCheck.php');
 
     <script>
         function loadAdminStats() {
-            var xhr = new XMLHttpRequest();
+            let xhr = new XMLHttpRequest();
             xhr.open("GET", "../../controllers/fetch_admin_stats.php", true);
 
             xhr.onload = function () {
                 if (xhr.status === 200) {
-                    var data = JSON.parse(xhr.responseText);
+                    let data = JSON.parse(xhr.responseText);
                     
-                    // Update the statistics
                     document.getElementById('totalUsers').textContent = data.total_users;
                     document.getElementById('activeUsers').textContent = data.active_users;
                     document.getElementById('inactiveUsers').textContent = data.inactive_users;
@@ -103,22 +101,22 @@ require_once('../../controllers/authCheck.php');
         }
 
         function loadAllUsers() {
-            var xhr = new XMLHttpRequest();
+            let xhr = new XMLHttpRequest();
             xhr.open("GET", "../../controllers/fetch_all_users.php", true);
 
             xhr.onload = function () {
                 if (xhr.status === 200) {
-                    var users = JSON.parse(xhr.responseText);
-                    var tbody = document.getElementById('usersTableBody');
+                    let users = JSON.parse(xhr.responseText);
+                    let tbody = document.getElementById('usersTableBody');
                     
                     if (users.length === 0) {
                         tbody.innerHTML = '<tr><td colspan="6" class="no-users">No users found</td></tr>';
                         return;
                     }
 
-                    var html = '';
+                    let html = '';
                     users.forEach(function(user) {
-                        var statusClass = user.status === 'active' ? 'active' : 'inactive';
+                        let statusClass = user.status === 'active' ? 'active' : 'inactive';
                         
                         html += '<tr>';
                         html += '<td>' + user.user_id + '</td>';
@@ -158,13 +156,13 @@ require_once('../../controllers/authCheck.php');
 
         function deleteUser(userId, userName) {
             if (confirm('Are you sure you want to delete user "' + userName + '"? This action cannot be undone.')) {
-                var xhr = new XMLHttpRequest();
+                let xhr = new XMLHttpRequest();
                 xhr.open("POST", "../../controllers/deleteUserControl.php", true);
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
                 xhr.onload = function () {
                     if (xhr.status === 200) {
-                        var response = JSON.parse(xhr.responseText);
+                        let response = JSON.parse(xhr.responseText);
                         if (response.success) {
                             alert('User deleted successfully');
                             loadAllUsers();
@@ -195,5 +193,7 @@ require_once('../../controllers/authCheck.php');
             loadAllUsers();
         }, 5000);
     </script>
+
+    <?php include('../partials/footer.php'); ?>
 </body>
 </html>
