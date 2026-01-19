@@ -46,7 +46,10 @@
         <div class="form-container">
             <div class="form-header">
                 <h2><i class="fas fa-user-edit"></i> Edit User</h2>
-                <a href="dashboard.php" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
+                <?php 
+                $returnPage = isset($_GET['return']) && $_GET['return'] === 'profile' ? 'profile.php' : 'dashboard.php';
+                ?>
+                <a href="<?php echo $returnPage; ?>" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
             </div>
 
             <?php if (isset($errors['generalErr'])): ?>
@@ -164,7 +167,10 @@
                     <button type="submit" class="btn-save">
                         <i class="fas fa-save"></i> Save Changes
                     </button>
-                    <a href="dashboard.php" class="btn-cancel">
+                    <?php 
+                    $returnPage = isset($_GET['return']) && $_GET['return'] === 'profile' ? 'profile.php' : 'dashboard.php';
+                    ?>
+                    <a href="<?php echo $returnPage; ?>" class="btn-cancel">
                         <i class="fas fa-times"></i> Cancel
                     </a>
                 </div>
