@@ -47,7 +47,7 @@
             <div class="form-header">
                 <h2><i class="fas fa-user-edit"></i> Edit User</h2>
                 <?php 
-                $returnPage = isset($_GET['return']) && $_GET['return'] === 'profile' ? 'profile.php' : 'dashboard.php';
+                $returnPage = isset($_GET['return']) && $_GET['return'] === 'profile' ? '../common/profile.php' : 'dashboard.php';
                 ?>
                 <a href="<?php echo $returnPage; ?>" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
             </div>
@@ -60,6 +60,9 @@
 
             <form action="../../controllers/updateUserControl.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['user_id']); ?>">
+                <?php if (isset($_GET['return']) && $_GET['return'] === 'profile'): ?>
+                    <input type="hidden" name="return" value="profile">
+                <?php endif; ?>
 
                 
                 <div class="profile-section">
@@ -168,7 +171,7 @@
                         <i class="fas fa-save"></i> Save Changes
                     </button>
                     <?php 
-                    $returnPage = isset($_GET['return']) && $_GET['return'] === 'profile' ? 'profile.php' : 'dashboard.php';
+                    $returnPage = isset($_GET['return']) && $_GET['return'] === 'profile' ? '../common/profile.php' : 'dashboard.php';
                     ?>
                     <a href="<?php echo $returnPage; ?>" class="btn-cancel">
                         <i class="fas fa-times"></i> Cancel
