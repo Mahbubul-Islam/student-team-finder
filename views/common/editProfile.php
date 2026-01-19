@@ -138,6 +138,6 @@
 
     <?php include('../partials/footer.php'); ?>
 
-    
+    <script src="js/editProfile.js"></script>
 </body>
 </html>

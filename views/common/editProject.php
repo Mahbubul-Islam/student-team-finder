@@ -150,6 +150,6 @@
 
     <?php include('../partials/footer.php'); ?>
 
-    
+    <script src="js/editProject.js"></script>
 </body>
 </html>
