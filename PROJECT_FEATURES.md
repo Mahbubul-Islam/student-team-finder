@@ -22,3 +22,9 @@ This task involves creating an admin dashboard with statistics cards (total user
 This task involves creating an admin profile page displaying user information with profile picture , showing all profile details (name, email, role, gender, status) in a clean card layout, edit profile button that redirects to the user edit form.
 
 **Status: Implemented**
+
+## T-5: Implement Common Pages and Project Management
+
+This task involves creating a common folder structure for shared pages accessible to all user roles, implementing home page using AJAX/JSON, creating profile page for all users with role-based edit routing, implementing editProfile form for users to edit their own profile, creating project details page displaying full project information, implementing edit project, adding delete project functionality.
+
+**Status: Implemented**
