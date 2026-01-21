@@ -49,7 +49,7 @@
         <div class="form-container">
             <div class="form-header">
                 <h2><i class="fas fa-edit"></i> Edit Project</h2>
-                <a href="project_details.php?id=<?php echo $projectId; ?>" class="back-btn">
+                <a href="javascript:history.back()" class="back-btn">
                     <i class="fas fa-arrow-left"></i> Back
                 </a>
             </div>
