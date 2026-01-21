@@ -91,4 +91,51 @@ function updateProject($projectId, $title, $description, $requiredSkills, $maxMe
     
     return $result;
 }
+
+function createProject($ownerId, $title, $description, $requiredSkills, $maxMembers, $status, $coverImage) {
+    $conn = dbConnect();
+    
+    $sql = "INSERT INTO projects (owner_id, title, description, required_skills, max_members, status, cover_image, created_at) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("isssiis", $ownerId, $title, $description, $requiredSkills, $maxMembers, $status, $coverImage);
+    
+    if ($stmt->execute()) {
+        $projectId = $conn->insert_id;
+        $stmt->close();
+        $conn->close();
+        return $projectId;
+    }
+    
+    $stmt->close();
+    $conn->close();
+    return false;
+}
+
+function searchProjects($searchQuery) {
+    $conn = dbConnect();
+    
+    $searchTerm = "%" . $searchQuery . "%";
+    
+    $sql = "SELECT p.*, u.name as owner_name 
+            FROM projects p 
+            LEFT JOIN users u ON p.owner_id = u.user_id 
+            WHERE p.title LIKE ? 
+            OR p.description LIKE ? 
+            OR p.required_skills LIKE ?
+            ORDER BY p.created_at DESC";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
+    $stmt->execute();
+    
+    $result = $stmt->get_result();
+    $projects = $result->fetch_all(MYSQLI_ASSOC);
+    
+    $stmt->close();
+    $conn->close();
+    
+    return $projects;
+}
 ?>
