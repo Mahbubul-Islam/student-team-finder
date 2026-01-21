@@ -54,6 +54,7 @@
             if ($sent) {
                 $_SESSION['reset_email'] = $email;
                 $_SESSION['success_message'] = 'OTP has been sent to your email';
+                cleanupExpiredOTPs();
                 header("Location: ../views/verify_otp.php");
                 exit();
             } 
