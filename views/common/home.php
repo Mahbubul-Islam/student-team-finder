@@ -22,6 +22,16 @@ require_once('../../controllers/authCheck.php');
             <p>Explore and join exciting student projects</p>
         </div>
 
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search projects by title, description, or skills..." oninput="searchProjects()">
+                <button class="btn-clear" id="clearSearch" onclick="clearSearch()" style="display: none;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
         <div class="projects-container" id="projectsContainer">
             <!-- Projects will be loaded here -->
         </div>
