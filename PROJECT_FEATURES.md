@@ -34,3 +34,9 @@ This task involves creating a common folder structure for shared pages accessibl
 This task involves implementing real-time dashboard updates for project owner using AJAX polling every 5 seconds, creating fetch (fetch_owner_stats.php, fetch_applicant_stats.php, fetch_admin_stats.php) returning JSON data, adding member count to project listings, fixing view button functionality and button logic for active/closed projects, removing success/error alerts while keeping confirmation dialogs for delete/reject/leave operations, adding active/closed project counts to admin dashboard with icons and styling, fixing back button to use history.back(), implementing separate session keys for project vs user messages to fix message display issues, removing HTML required attributes from all forms to demonstrate server-side validation, adding success message displays to admin dashboard, profile, and login pages, and implementing navbar brand link to home page, also implement notification based on user actions.
 
 **Status: Implemented**
+
+## T-7: Implement Project Applicant Dashboard
+
+This task involves creating a project applicant dashboard with real-time statistics cards showing pending, accepted, and rejected application counts, implementing application tracking table displaying project title, owner name, project status, application status, and applied date with view actions, creating AJAX auto-refresh functionality every 5 seconds for real-time updates, adding fetch controller (fetch_applicant_stats.php) returning JSON data with application statistics and details, implementing responsive design with FontAwesome icons and status badges, adding empty state display when no applications exist with browse projects link, creating application filtering by status (pending/accepted/rejected), and implementing view project details functionality from dashboard table.
+
+**Status: Implemented**
