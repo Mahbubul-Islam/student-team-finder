@@ -11,7 +11,14 @@ require_once('../models/projects.php');
 
 header('Content-Type: application/json');
 
-$projects = getAllProjects();
+
+$searchQuery = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+if (!empty($searchQuery)) {
+    $projects = searchProjects($searchQuery);
+} else {
+    $projects = getAllProjects();
+}
 
 echo json_encode($projects);
 ?>
