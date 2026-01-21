@@ -28,7 +28,7 @@
     <div class="main-content">
         <div class="notifications-container">
             <div class="notifications-header">
-                <h1><i class="fas fa-bell"></i> Notifications</h1>
+                <h1 style="color: whitesmoke;"><i class="fas fa-bell" style="color: #e9eaed;"></i> Notifications</h1>
                 <?php if (!empty($notifications)): ?>
                     <button class="btn-mark-all" onclick="markAllAsRead()">
                         <i class="fas fa-check-double"></i> Mark All as Read

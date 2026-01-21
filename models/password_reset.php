@@ -110,12 +110,12 @@
             $mail->Port       = 465;
             
             
-            $mail->setFrom('mahbubulislamshiam48@gmail.com', 'Student Team Finder');
+            $mail->setFrom('mahbubulislamshiam48@gmail.com', 'TeamConnect');
             $mail->addAddress($email);
             
            
             $mail->isHTML(true);
-            $mail->Subject = 'Password Reset OTP - Student Team Finder';
+            $mail->Subject = 'Password Reset OTP - TeamConnect';
             $mail->Body    = "
                 <html>
                 <body style='font-family: Arial, sans-serif;'>
@@ -125,7 +125,7 @@
                     <p>This OTP will expire in <strong>15 minutes</strong>.</p>
                     <p>If you did not request this, please ignore this email.</p>
                     <hr>
-                    <p style='color: #666; font-size: 12px;'>Student Team Finder</p>
+                    <p style='color: #666; font-size: 12px;'>TeamConnect</p>
                 </body>
                 </html>
             ";

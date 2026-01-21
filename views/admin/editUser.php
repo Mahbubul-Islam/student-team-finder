@@ -46,10 +46,7 @@
         <div class="form-container">
             <div class="form-header">
                 <h2><i class="fas fa-user-edit"></i> Edit User</h2>
-                <?php 
-                $returnPage = isset($_GET['return']) && $_GET['return'] === 'profile' ? '../common/profile.php' : 'dashboard.php';
-                ?>
-                <a href="<?php echo $returnPage; ?>" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
+                <a href="javascript:history.back()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
             </div>
 
             <?php if (isset($errors['generalErr'])): ?>
@@ -180,7 +177,7 @@
             </form>
         </div>
     </div>
-
+<script src="js/editUser.js"></script>
     <?php include('../partials/footer.php'); ?>
     
 </body>

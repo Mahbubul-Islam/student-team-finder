@@ -4,6 +4,8 @@
   padding: 20px 0;
   text-align: center;
   margin-top: auto;
+  position: relative;
+  bottom: 0;
 }
 .footer div {
   max-width: 1200px;
