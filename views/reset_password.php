@@ -45,7 +45,6 @@ unset($_SESSION['success_message']);
                         name="new_password" 
                         placeholder="New Password" 
                         minlength="6"
-                        required
                     >
                     <?php if ($passwordErr): ?>
                         <span class="error-message"><?php echo htmlspecialchars($passwordErr); ?></span>
@@ -57,7 +56,6 @@ unset($_SESSION['success_message']);
                         name="confirm_password" 
                         placeholder="Confirm Password" 
                         minlength="6"
-                        required
                     >
                     <?php if ($confirmErr): ?>
                         <span class="error-message"><?php echo htmlspecialchars($confirmErr); ?></span>

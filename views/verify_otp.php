@@ -44,7 +44,6 @@ unset($_SESSION['success_message']);
                         placeholder="Enter 6-digit OTP" 
                         maxlength="6"
                         pattern="[0-9]{6}"
-                        required
                         autofocus
                     >
                     <?php if ($otpErr): ?>
