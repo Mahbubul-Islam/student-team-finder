@@ -42,12 +42,34 @@
     }
 
     
+    function getActiveProjectCount() {
+        $conn = dbConnect();
+        $query = "SELECT COUNT(*) as total FROM projects WHERE status = 'active'";
+        $result = $conn->query($query);
+        $data = $result->fetch_assoc();
+        $conn->close();
+        return $data['total'];
+    }
+
+    
+    function getInactiveProjectCount() {
+        $conn = dbConnect();
+        $query = "SELECT COUNT(*) as total FROM projects WHERE status = 'closed'";
+        $result = $conn->query($query);
+        $data = $result->fetch_assoc();
+        $conn->close();
+        return $data['total'];
+    }
+
+    
     function getAdminStats() {
         return [
             'total_users' => getTotalUserCount(),
             'active_users' => getActiveUserCount(),
             'inactive_users' => getInactiveUserCount(),
-            'total_projects' => getTotalProjectCount()
+            'total_projects' => getTotalProjectCount(),
+            'active_projects' => getActiveProjectCount(),
+            'inactive_projects' => getInactiveProjectCount()
         ];
     }
 

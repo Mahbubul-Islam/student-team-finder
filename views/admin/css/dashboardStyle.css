@@ -10,6 +10,24 @@ body {
   padding: 20px;
 }
 
+.success-alert {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #28a745;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.success-alert i {
+  font-size: 18px;
+}
+
 .dashboard-header {
   margin-bottom: 30px;
 }
@@ -25,7 +43,7 @@ body {
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   margin-bottom: 30px;
 }
@@ -69,6 +87,14 @@ body {
 
 .stat-card.projects::before {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.stat-card.active-projects::before {
+  background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+}
+
+.stat-card.inactive-projects::before {
+  background: linear-gradient(135deg, #cb2d3e 0%, #ef473a 100%);
 }
 
 .stat-icon {

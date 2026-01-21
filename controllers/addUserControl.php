@@ -1,6 +1,7 @@
 <?php
     session_start();
     require_once("../models/users.php");
+    require_once("../models/notifications.php");
 
    
     if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
@@ -139,9 +140,15 @@
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
         
-        $result = createUserWithStatus($name, $email, $hashedPassword, $role, $gender, $status);
+        $userId = createUserWithStatus($name, $email, $hashedPassword, $role, $gender, $status);
 
-        if ($result) {
+        if ($userId) {
+            // Send notification to newly created user
+            createNotification(
+                $userId,
+                "Welcome! Your account has been created by an administrator. Role: " . ucfirst($role)
+            );
+            
             $_SESSION['success_message'] = "User added successfully";
             header("Location: ../views/admin/dashboard.php");
         } else {

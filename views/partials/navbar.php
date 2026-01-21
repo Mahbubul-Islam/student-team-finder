@@ -1,4 +1,8 @@
 <?php
+
+require_once(__DIR__ . '/../../models/notifications.php');
+$unreadCount = getUnreadCount($_SESSION['user']['user_id']);
+
 function getBasePath() {
     $role = $_SESSION['user']['role'] ?? '';
     
@@ -39,8 +43,8 @@ function getCommonPath() {
 
 <nav class="navbar">
     <div class="navbar-container">
-        <a href="#" class="navbar-brand">
-            🎓 Student Team Finder
+        <a href="<?php echo getCommonPath(); ?>home.php" class="navbar-brand">
+            TeamConnect
         </a>
 
         <div class="navbar-toggle" onclick="toggleMenu()">
@@ -53,6 +57,15 @@ function getCommonPath() {
             <li><a href="<?php echo getCommonPath(); ?>home.php" class="navbar-link">Home</a></li>
             <li><a href="<?php echo getBasePath(); ?>dashboard.php" class="navbar-link">Dashboard</a></li>
             <li><a href="<?php echo getCommonPath(); ?>profile.php" class="navbar-link">Profile</a></li>
+            
+            <li>
+                <a href="<?php echo getCommonPath(); ?>notifications.php" class="navbar-link notification-link">
+                    <i class="fas fa-bell"></i>
+                    <?php if ($unreadCount > 0): ?>
+                        <span class="notification-badge"><?php echo $unreadCount; ?></span>
+                    <?php endif; ?>
+                </a>
+            </li>
             
             <li class="user-profile">
                 

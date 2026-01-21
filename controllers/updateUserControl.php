@@ -1,6 +1,7 @@
 <?php
     session_start();
     require_once("../models/users.php");
+    require_once("../models/notifications.php");
 
 
     if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
@@ -188,6 +189,12 @@
         }
 
         if ($updateResult) {
+            // Send notification to user about profile update by admin
+            createNotification(
+                $userId,
+                "Your profile has been updated by an administrator."
+            );
+            
             $_SESSION['success_message'] = "User updated successfully";
             
             

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('../models/projects.php');
+require_once('../models/notifications.php');
 
 if (!isset($_SESSION['user'])) {
     http_response_code(403);
@@ -30,7 +31,7 @@ if (!$isAdmin && !$isOwner) {
     exit();
 }
 
-
+// delete cover photo
 if (!empty($project['cover_image']) && $project['cover_image'] !== 'default_project.png') {
     $imagePath = __DIR__ . "/../resources/projects/{$project['cover_image']}";
     if (file_exists($imagePath)) {
@@ -43,6 +44,14 @@ $result = deleteProject($projectId);
 header('Content-Type: application/json');
 
 if ($result) {
+    // If admin deleted the project, notify the owner
+    if ($isAdmin && !$isOwner) {
+        createNotification(
+            $project['owner_id'],
+            "Your project \"" . htmlspecialchars($project['title']) . "\" has been deleted by an administrator."
+        );
+    }
+    
     echo json_encode(['success' => true, 'message' => 'Project deleted successfully']);
 } else {
     echo json_encode(['success' => false, 'message' => 'Failed to delete project']);

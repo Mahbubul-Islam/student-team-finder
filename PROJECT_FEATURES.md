@@ -28,3 +28,9 @@ This task involves creating an admin profile page displaying user information wi
 This task involves creating a common folder structure for shared pages accessible to all user roles, implementing home page using AJAX/JSON, creating profile page for all users with role-based edit routing, implementing editProfile form for users to edit their own profile, creating project details page displaying full project information, implementing edit project, adding delete project functionality.
 
 **Status: Implemented**
+
+## T-6: Implement Notification, Real-Time Dashboard Updates and Server-Side Validation
+
+This task involves implementing real-time dashboard updates for project owner using AJAX polling every 5 seconds, creating fetch (fetch_owner_stats.php, fetch_applicant_stats.php, fetch_admin_stats.php) returning JSON data, adding member count to project listings, fixing view button functionality and button logic for active/closed projects, removing success/error alerts while keeping confirmation dialogs for delete/reject/leave operations, adding active/closed project counts to admin dashboard with icons and styling, fixing back button to use history.back(), implementing separate session keys for project vs user messages to fix message display issues, removing HTML required attributes from all forms to demonstrate server-side validation, adding success message displays to admin dashboard, profile, and login pages, and implementing navbar brand link to home page, also implement notification based on user actions.
+
+**Status: Implemented**

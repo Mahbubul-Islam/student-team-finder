@@ -37,9 +37,10 @@
         $stmt = $conn->prepare($query);
         $stmt->bind_param("ssssss", $name, $email, $hashedPassword, $role, $gender, $status);
         $result = $stmt->execute();
+        $userId = $result ? $conn->insert_id : false;
         $stmt->close();
         $conn->close();
-        return $result;
+        return $userId;
     }
 
     // function getRoleByEmail($email) {

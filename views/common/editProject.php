@@ -40,7 +40,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="css/editProjectStyle.css">
 </head>
 <body>
@@ -89,7 +88,7 @@
                 <div class="form-grid">
                     <div class="form-field full-width">
                         <label><i class="fas fa-heading"></i> Project Title</label>
-                        <input type="text" name="title" value="<?php echo htmlspecialchars($project['title']); ?>" required>
+                        <input type="text" name="title" value="<?php echo htmlspecialchars($project['title']); ?>">
                         <?php if (isset($errors['titleErr'])): ?>
                             <span class="error-text"><?php echo $errors['titleErr']; ?></span>
                         <?php endif; ?>
@@ -97,7 +96,7 @@
 
                     <div class="form-field full-width">
                         <label><i class="fas fa-align-left"></i> Description</label>
-                        <textarea name="description" rows="6" required><?php echo htmlspecialchars($project['description']); ?></textarea>
+                        <textarea name="description" rows="6"><?php echo htmlspecialchars($project['description']); ?></textarea>
                         <?php if (isset($errors['descriptionErr'])): ?>
                             <span class="error-text"><?php echo $errors['descriptionErr']; ?></span>
                         <?php endif; ?>
@@ -107,7 +106,7 @@
                         <label><i class="fas fa-code"></i> Required Skills (comma-separated)</label>
                         <input type="text" name="required_skills" 
                                value="<?php echo htmlspecialchars($project['required_skills']); ?>" 
-                               placeholder="e.g., PHP, JavaScript, MySQL" required>
+                               placeholder="e.g., PHP, JavaScript, MySQL">
                         <?php if (isset($errors['skillsErr'])): ?>
                             <span class="error-text"><?php echo $errors['skillsErr']; ?></span>
                         <?php endif; ?>
@@ -117,7 +116,7 @@
                         <label><i class="fas fa-users"></i> Maximum Members</label>
                         <input type="number" name="max_members" 
                                value="<?php echo htmlspecialchars($project['max_members']); ?>" 
-                               min="1" max="50" required>
+                               min="1" max="50">
                         <?php if (isset($errors['membersErr'])): ?>
                             <span class="error-text"><?php echo $errors['membersErr']; ?></span>
                         <?php endif; ?>
@@ -125,7 +124,7 @@
 
                     <div class="form-field">
                         <label><i class="fas fa-toggle-on"></i> Status</label>
-                        <select name="status" required>
+                        <select name="status">
                             <option value="">Select Status</option>
                             <option value="active" <?php echo $project['status'] === 'active' ? 'selected' : ''; ?>>Active</option>
                             <option value="closed" <?php echo $project['status'] === 'closed' ? 'selected' : ''; ?>>Closed</option>

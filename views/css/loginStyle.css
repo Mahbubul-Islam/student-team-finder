@@ -28,6 +28,17 @@ body {
   text-align: center;
 }
 
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #28a745;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
 /*Form text*/
 .title {
   font-weight: bold;

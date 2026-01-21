@@ -38,6 +38,13 @@
     <?php include('../partials/navbar.php'); ?>
 
     <div class="main-content">
+        <?php if (isset($_SESSION['success_message'])): ?>
+            <div class="success-alert">
+                <i class="fas fa-check-circle"></i> <?php echo $_SESSION['success_message']; ?>
+            </div>
+            <?php unset($_SESSION['success_message']); ?>
+        <?php endif; ?>
+        
         <div class="profile-container">
             <div class="profile-header">
                 <h2><i class="fas fa-user-circle"></i> My Profile</h2>

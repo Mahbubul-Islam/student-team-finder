@@ -39,7 +39,6 @@ unset($_SESSION['success_message']);
                         name="email" 
                         placeholder="Enter your email" 
                         value="<?php echo htmlspecialchars($oldInput['email'] ?? ''); ?>"
-                        required
                     >
                     <?php if ($emailErr): ?>
                         <span class="error-message"><?php echo htmlspecialchars($emailErr); ?></span>

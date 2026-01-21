@@ -14,6 +14,13 @@ require_once('../../controllers/authCheck.php');
     <?php include('../partials/navbar.php'); ?>
     
     <div class="dashboard-container">
+        <?php if (isset($_SESSION['success_message'])): ?>
+            <div class="success-alert">
+                <i class="fas fa-check-circle"></i> <?php echo $_SESSION['success_message']; ?>
+            </div>
+            <?php unset($_SESSION['success_message']); ?>
+        <?php endif; ?>
+        
         <div class="dashboard-header">
             <h1>Admin Dashboard</h1>
             <p>Welcome back, <?php echo htmlspecialchars($_SESSION['user']['name']); ?>!</p>
@@ -39,9 +46,21 @@ require_once('../../controllers/authCheck.php');
             </div>
 
             <div class="stat-card projects">
-                <div class="stat-icon"><i class="fas fa-folder-open"></i></div>
+                <div class="stat-icon"><i class="fa-solid fa-folder"></i></i></div>
                 <div class="stat-label">Total Projects</div>
                 <div class="stat-value" id="totalProjects">0</div>
+            </div>
+
+            <div class="stat-card active-projects">
+                <div class="stat-icon"><i class="fa-solid fa-folder-open"></i></div>
+                <div class="stat-label">Active Projects</div>
+                <div class="stat-value" id="activeProjects">0</div>
+            </div>
+
+            <div class="stat-card inactive-projects">
+                <div class="stat-icon"><i class="fa-duotone fa-solid fa-folder-closed"></i></div>
+                <div class="stat-label">Closed Projects</div>
+                <div class="stat-value" id="inactiveProjects">0</div>
             </div>
         </div>
 
@@ -88,6 +107,8 @@ require_once('../../controllers/authCheck.php');
                     document.getElementById('activeUsers').textContent = data.active_users;
                     document.getElementById('inactiveUsers').textContent = data.inactive_users;
                     document.getElementById('totalProjects').textContent = data.total_projects;
+                    document.getElementById('activeProjects').textContent = data.active_projects;
+                    document.getElementById('inactiveProjects').textContent = data.inactive_projects;
                 } else {
                     console.error('Error fetching stats:', xhr.status);
                 }

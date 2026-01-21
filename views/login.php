@@ -2,12 +2,14 @@
 session_start();
 $errors = $_SESSION['errors'] ?? [];
 $oldInput = $_SESSION['old_input'] ?? [];
+$successMessage = $_SESSION['success_message'] ?? '';
 
 $emailErr = $errors['emailErr'] ?? '';
 $passwordErr = $errors['passwordErr'] ?? '';
 
 unset($_SESSION['errors']);
 unset($_SESSION['old_input']);
+unset($_SESSION['success_message']);
 
 ?>
 <!DOCTYPE html>
@@ -17,6 +19,11 @@ unset($_SESSION['old_input']);
     </head>
     <body>
         <div class="form-box">
+<?php if ($successMessage): ?>
+    <div class="success-message">
+        <?php echo htmlspecialchars($successMessage); ?>
+    </div>
+<?php endif; ?>
 <form class="form" method="post" action="../controllers/authControl.php">
     <span class="title">Log in</span>
     <span class="subtitle">Log in with your email and password.</span>

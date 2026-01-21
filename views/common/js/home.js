@@ -1,6 +1,13 @@
-function loadProjects() {
+let currentSearchQuery = "";
+
+function loadProjects(searchQuery = "") {
+	currentSearchQuery = searchQuery;
 	const xhr = new XMLHttpRequest();
-	xhr.open("GET", "../../controllers/fetch_projects.php", true);
+	const url = searchQuery
+		? `../../controllers/fetch_projects.php?search=${encodeURIComponent(searchQuery)}`
+		: "../../controllers/fetch_projects.php";
+
+	xhr.open("GET", url, true);
 
 	xhr.onload = function () {
 		if (xhr.status === 200) {
@@ -74,9 +81,34 @@ function loadProjects() {
 	xhr.send();
 }
 
+function searchProjects() {
+	const searchInput = document.getElementById("searchInput");
+	const clearBtn = document.getElementById("clearSearch");
+	const query = searchInput.value.trim();
+
+	// Show/hide clear button
+	if (query.length > 0) {
+		clearBtn.style.display = "flex";
+	} else {
+		clearBtn.style.display = "none";
+	}
+
+	// Search immediately
+	loadProjects(query);
+}
+
+function clearSearch() {
+	const searchInput = document.getElementById("searchInput");
+	const clearBtn = document.getElementById("clearSearch");
+
+	searchInput.value = "";
+	clearBtn.style.display = "none";
+	currentSearchQuery = "";
+	loadProjects();
+}
 
 loadProjects();
 
 setInterval(function () {
-	loadProjects();
+	loadProjects(currentSearchQuery);
 }, 5000);
