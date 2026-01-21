@@ -10,6 +10,24 @@ body {
   padding: 20px;
 }
 
+.success-alert {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #28a745;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.success-alert i {
+  font-size: 18px;
+}
+
 .profile-container {
   background: white;
   border-radius: 10px;
