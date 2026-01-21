@@ -133,7 +133,7 @@ if (!empty($errors)) {
 $updateResult = updateProject($projectId, $title, $description, $requiredSkills, $maxMembers, $status, $coverImage);
 
 if ($updateResult) {
-    $_SESSION['success_message'] = "Project updated successfully";
+    $_SESSION['project_success_message'] = "Project updated successfully";
     header("Location: ../views/common/project_details.php?id=" . $projectId);
     exit();
 } else {
