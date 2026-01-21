@@ -47,7 +47,7 @@
                 <div class="form-grid">
                     <div class="form-field">
                         <label><i class="fas fa-user"></i> Full Name</label>
-                        <input type="text" name="name" value="<?php echo htmlspecialchars($oldInput['name'] ?? ''); ?>" required>
+                        <input type="text" name="name" value="<?php echo htmlspecialchars($oldInput['name'] ?? ''); ?>">
                         <?php if (isset($errors['nameErr'])): ?>
                             <span class="error-text"><?php echo $errors['nameErr']; ?></span>
                         <?php endif; ?>
@@ -55,7 +55,7 @@
 
                     <div class="form-field">
                         <label><i class="fas fa-envelope"></i> Email</label>
-                        <input type="email" name="email" value="<?php echo htmlspecialchars($oldInput['email'] ?? ''); ?>" required>
+                        <input type="email" name="email" value="<?php echo htmlspecialchars($oldInput['email'] ?? ''); ?>">
                         <?php if (isset($errors['emailErr'])): ?>
                             <span class="error-text"><?php echo $errors['emailErr']; ?></span>
                         <?php endif; ?>
@@ -63,7 +63,7 @@
 
                     <div class="form-field">
                         <label><i class="fas fa-user-tag"></i> Role</label>
-                        <select name="role" required>
+                        <select name="role" >
                             <option value="">Select Role</option>
                             <option value="admin" <?php echo ($oldInput['role'] ?? '') === 'admin' ? 'selected' : ''; ?>>Admin</option>
                             <option value="project_owner" <?php echo ($oldInput['role'] ?? '') === 'project_owner' ? 'selected' : ''; ?>>Project Owner</option>
@@ -76,7 +76,7 @@
 
                     <div class="form-field">
                         <label><i class="fas fa-venus-mars"></i> Gender</label>
-                        <select name="gender" required>
+                        <select name="gender">
                             <option value="">Select Gender</option>
                             <option value="male" <?php echo ($oldInput['gender'] ?? '') === 'male' ? 'selected' : ''; ?>>Male</option>
                             <option value="female" <?php echo ($oldInput['gender'] ?? '') === 'female' ? 'selected' : ''; ?>>Female</option>
@@ -89,7 +89,7 @@
 
                     <div class="form-field">
                         <label><i class="fas fa-lock"></i> Password</label>
-                        <input type="password" name="password" placeholder="Minimum 6 characters" required>
+                        <input type="password" name="password" placeholder="Minimum 6 characters" >
                         <?php if (isset($errors['passwordErr'])): ?>
                             <span class="error-text"><?php echo $errors['passwordErr']; ?></span>
                         <?php endif; ?>
@@ -97,7 +97,7 @@
 
                     <div class="form-field">
                         <label><i class="fas fa-lock"></i> Confirm Password</label>
-                        <input type="password" name="confirm_password" placeholder="Re-enter password" required>
+                        <input type="password" name="confirm_password" placeholder="Re-enter password" >
                         <?php if (isset($errors['confPasswordErr'])): ?>
                             <span class="error-text"><?php echo $errors['confPasswordErr']; ?></span>
                         <?php endif; ?>
@@ -105,7 +105,7 @@
 
                     <div class="form-field full-width">
                         <label><i class="fas fa-toggle-on"></i> Status</label>
-                        <select name="status" required>
+                        <select name="status" >
                             <option value="">Select Status</option>
                             <option value="active" <?php echo ($oldInput['status'] ?? 'active') === 'active' ? 'selected' : ''; ?>>Active</option>
                             <option value="inactive" <?php echo ($oldInput['status'] ?? '') === 'inactive' ? 'selected' : ''; ?>>Inactive</option>
@@ -129,7 +129,7 @@
         </div>
     </div>
 
-    <script>
+    <!-- <script>
         
         document.querySelector('form').addEventListener('submit', function(e) {
             const password = document.querySelector('input[name="password"]').value;
@@ -147,7 +147,7 @@
                 return;
             }
         });
-    </script>
+    </script> -->
 
     <?php include('../partials/footer.php'); ?>
 </body>
