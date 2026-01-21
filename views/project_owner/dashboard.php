@@ -48,7 +48,7 @@ $joinRequests = getJoinRequestsByProjectOwner($ownerId);
                 </div>
                 <div class="stat-details">
                     <h3>Total Projects</h3>
-                    <p class="stat-number" id="totalProjects"><?php echo $totalProjects; ?></p>
+                    <p class="stat-number" id="totalProjects"></p>
                 </div>
             </div>
             
@@ -58,7 +58,7 @@ $joinRequests = getJoinRequestsByProjectOwner($ownerId);
                 </div>
                 <div class="stat-details">
                     <h3>Active Projects</h3>
-                    <p class="stat-number" id="activeProjects"><?php echo $totalActive; ?></p>
+                    <p class="stat-number" id="activeProjects"></p>
                 </div>
             </div>
             
@@ -68,7 +68,7 @@ $joinRequests = getJoinRequestsByProjectOwner($ownerId);
                 </div>
                 <div class="stat-details">
                     <h3>Closed Projects</h3>
-                    <p class="stat-number" id="closedProjects"><?php echo $totalClosed; ?></p>
+                    <p class="stat-number" id="closedProjects"></p>
                 </div>
             </div>
         </div>
@@ -91,29 +91,7 @@ $joinRequests = getJoinRequestsByProjectOwner($ownerId);
                             </tr>
                         </thead>
                         <tbody id="requestsTableBody">
-                            <?php foreach ($joinRequests as $request): ?>
-                                <tr>
-                                    <td class="applicant-name">
-                                        <i class="fas fa-user"></i>
-                                        <?php echo htmlspecialchars($request['applicant_name']); ?>
-                                    </td>
-                                    <td><?php echo htmlspecialchars($request['project_title']); ?></td>
-                                    <td><?php echo date('M d, Y', strtotime($request['applied_at'])); ?></td>
-                                    <td class="request-message">
-                                        <div class="message-preview">
-                                            <?php echo htmlspecialchars(trim($request['message'])); ?>
-                                        </div>
-                                    </td>
-                                    <td class="action-buttons">
-                                        <button class="btn-accept" onclick="acceptRequest(<?php echo $request['application_id']; ?>)">
-                                            <i class="fas fa-check"></i> Accept
-                                        </button>
-                                        <button class="btn-reject" onclick="rejectRequest(<?php echo $request['application_id']; ?>)">
-                                            <i class="fas fa-times"></i> Reject
-                                        </button>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -151,46 +129,7 @@ $joinRequests = getJoinRequestsByProjectOwner($ownerId);
                             </tr>
                         </thead>
                         <tbody id="projectsTableBody">
-                            <?php foreach ($projects as $project): ?>
-                                <tr>
-                                    <td class="project-title">
-                                        <i class="fas fa-project-diagram"></i>
-                                        <?php echo htmlspecialchars($project['title']); ?>
-                                    </td>
-                                    <td>
-                                        <span class="status-badge <?php echo $project['status']; ?>">
-                                            <?php echo ucfirst($project['status']); ?>
-                                        </span>
-                                    </td>
-                                    <td><?php echo date('M d, Y', strtotime($project['created_at'])); ?></td>
-                                    <td class="members-count">
-                                        <?php 
-                                        $totalMembers = getProjectMemberCount($project['project_id']);
-                                        $isFull = ($totalMembers >= $project['max_members']);
-                                        ?>
-                                        <span class="<?php echo $isFull ? 'members-full' : ''; ?>">
-                                            <?php echo $totalMembers; ?> / <?php echo $project['max_members']; ?>
-                                        </span>
-                                    </td>
-                                    <td class="action-buttons">
-                                        <?php if ($project['status'] === 'active'): ?>
-                                            <button class="btn-edit" onclick="editProject(<?php echo $project['project_id']; ?>)">
-                                                <i class="fas fa-edit"></i> Edit
-                                            </button>
-                                            <button class="btn-view" onclick="viewProject(<?php echo $project['project_id']; ?>)">
-                                                <i class="fas fa-eye"></i> View
-                                            </button>
-                                        <?php else: ?>
-                                            <button class="btn-edit" disabled title="Closed projects cannot be edited">
-                                                <i class="fas fa-ban"></i> Closed
-                                            </button>
-                                        <?php endif; ?>
-                                        <button class="btn-delete" onclick="deleteProject(<?php echo $project['project_id']; ?>, '<?php echo htmlspecialchars($project['title']); ?>')">
-                                            <i class="fas fa-trash"></i> Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
+                            
                         </tbody>
                     </table>
                 </div>
