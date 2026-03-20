@@ -96,21 +96,37 @@
 
     function sendOTPEmail($email, $otp) {
         require __DIR__ . '/../vendor/autoload.php'; 
+
+        loadEnvFile(__DIR__ . "/../.env");
+
+        $smtpHost = env('SMTP_HOST', 'smtp.gmail.com');
+        $smtpAuth = filter_var(env('SMTP_AUTH', 'true'), FILTER_VALIDATE_BOOLEAN);
+        $smtpUser = env('SMTP_USERNAME', '');
+        $smtpPass = env('SMTP_PASSWORD', '');
+        $smtpPort = (int) env('SMTP_PORT', 465);
+        $smtpSecure = env('SMTP_ENCRYPTION', 'ssl');
+
+        $mailFromAddress = env('MAIL_FROM_ADDRESS', $smtpUser);
+        $mailFromName = env('MAIL_FROM_NAME', 'TeamConnect');
+
+        if (empty($smtpUser) || empty($smtpPass) || empty($mailFromAddress)) {
+            return false;
+        }
         
         $mail = new PHPMailer(true);
         
         try {
             
             $mail->isSMTP();
-            $mail->Host       = 'smtp.gmail.com';
-            $mail->SMTPAuth   = true;
-            $mail->Username   = 'mahbubulislamshiam48@gmail.com'; 
-            $mail->Password   = 'xwcg nsjp cnzs aeqc';         
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;      
-            $mail->Port       = 465;
+            $mail->Host       = $smtpHost;
+            $mail->SMTPAuth   = $smtpAuth;
+            $mail->Username   = $smtpUser;
+            $mail->Password   = $smtpPass;
+            $mail->SMTPSecure = $smtpSecure === 'tls' ? PHPMailer::ENCRYPTION_STARTTLS : PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port       = $smtpPort;
             
             
-            $mail->setFrom('mahbubulislamshiam48@gmail.com', 'TeamConnect');
+            $mail->setFrom($mailFromAddress, $mailFromName);
             $mail->addAddress($email);
             
            
